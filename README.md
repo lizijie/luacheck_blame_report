@@ -12,10 +12,11 @@ git、awk、wc、find
 [luacheck_blame_report](https://github.com/lizijie/luacheck_blame_report)子模块luacheck的异常报告
 ```
 $ cd xxxx/luacheck_blame_report/luacheck
-$ sh check.sh ./ ../..luacheckrc
---config ../.luacheckrc
+$ sh check.sh ./ ../..luacheckrc --config ../.luacheckrc
+
 Total: 123 warnings / 6 errors in 130 files
 report file: /mnt/f/luacheck_blame_report/2022-10-16-09-51-55-lua_check_report
+
 $ cat /mnt/f/luacheck_blame_report/2022-10-16-09-51-55-lua_check_report
 author   number of warnings/errors
 ----------------------------
