@@ -3,20 +3,20 @@ luacheck是一个很不错的lua静态代码分析工具，它输出异常信息
 [luacheck_blame_report](https://github.com/lizijie/luacheck_blame_report)目前基于git仓库工程，整合luacheck与git blame筛选出与作者关联的异常数量以及具体的异常条目
 
 # 用法
-`sh check [需要检查的lua代码文件/目录] [luacheck配置文件(可选)]`
+`sh check.sh [luachech本身的参数选项]`
 
 # 运行依赖
 git、awk、wc、find
 
 # 样例
-[luacheck_blame_report](https://github.com/lizijie/luacheck_blame_report)子模块luacheck的异常报告
+[luacheck_blame_report](https://github.com/lizijie/luacheck_blame_report)目录下luacheck的lua代码异常报告
 ```
+$ cd xxxx
+$ git clone https://github.com/lizijie/luacheck_blame_report --recursive ./luacheck
 $ cd xxxx/luacheck_blame_report/luacheck
-$ sh check.sh ./ ../..luacheckrc --config ../.luacheckrc
-
+$ sh ../check.sh ./ --config ../.luacheckrc
 Total: 123 warnings / 6 errors in 130 files
 report file: /mnt/f/luacheck_blame_report/2022-10-16-09-51-55-lua_check_report
-
 $ cat /mnt/f/luacheck_blame_report/2022-10-16-09-51-55-lua_check_report
 author   number of warnings/errors
 ----------------------------
@@ -162,13 +162,13 @@ Peter Melnichenko
     spec/samples/utf8.lua:4:5: value assigned to field päällekkäinen nimi a\u{200B}b is overwritten on line 5 before use
     spec/samples/utf8_error.lua:2:11: expected statement near 'о'
     src/luacheck/unicode_printability_boundaries.lua:2:121: line is too long (7635 > 120)
-```_length.lua:26:101: line is too long (104 > 100)
-    spec/samples/line_length.lua:29:121: line is too long (125 > 120)
-    spec/samples/reversed_fornum.lua:1:1: numeric for loop goes from #(expr) down to -1.5 but loop step is not negative
-    spec/samples/utf8.lua:2:1: setting undefined field 분야 명 of global math
-    spec/samples/utf8.lua:2:16: accessing undefined field 値 of global math
-    spec/samples/utf8.lua:3:25: unused variable t
-    spec/samples/utf8.lua:4:5: value assigned to field päällekkäinen nimi a\u{200B}b is overwritten on line 5 before use
-    spec/samples/utf8_error.lua:2:11: expected statement near 'о'
-    src/luacheck/unicode_printability_boundaries.lua:2:121: line is too long (7635 > 120)
 ```
+
+<br> 
+<br> 
+<b>原文:<br>
+<https://lizijie.github.io/2022/10/11/git%E5%B7%A5%E7%A8%8Bluacheck%E5%BC%82%E5%B8%B8%E8%B4%A3%E4%BB%BB%E4%BA%BA%E5%B7%A5%E5%85%B7luacheck_blame_report.html>
+<br>
+作者github:<br>
+<https://github.com/lizijie>
+</b>

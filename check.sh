@@ -2,14 +2,9 @@
 
 ROOT=$(cd `dirname $0`; pwd)
 
-TARGET_DIR=$1
-TARGET_CFG=$2
+PARAMS=$*
 
-# 是否使.luacheckrc配置文件选项
-if [ ${TARGET_CFG} -a -f ${TARGET_CFG} ]; then
-    OPT_CFG="--config "${TARGET_CFG}
-fi
-echo ${OPT_CFG}
+LUA_CHECK_ROOT=${ROOT}/luacheck
 
 TMP_DIR=${ROOT}/.temp
 AUTHOR_DIR=${TMP_DIR}/author
@@ -20,8 +15,8 @@ mkdir -p ${AUTHOR_DIR}
 
 # 1. 导出luacheck异常信息
 # 2. 去除luacheck输出的颜色码
-lua -e "package.path=\"${ROOT}/luacheck/src/?.lua;${ROOT}/luacheck/src/?/init.lua;\"..package.path" \
-${ROOT}/luacheck/bin/luacheck.lua ${OPT_CFG} ${TARGET_DIR} \
+lua -e "package.path=\"${LUA_CHECK_ROOT}/src/?.lua;${LUA_CHECK_ROOT}/src/?/init.lua;\"..package.path" \
+${LUA_CHECK_ROOT}/bin/luacheck.lua ${PARAMS} \
 | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" \
 >> ${LUACHECK_OUTPUT}
 
