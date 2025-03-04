@@ -1,23 +1,65 @@
-luacheck是一个很不错的lua静态代码分析工具，它输出异常信息都值得去关注。[luacheck_blame_report](https://github.com/lizijie/luacheck_blame_report)创作的本意，是希望在持续化测试过程，能得到更多luacheck输出的异常有关联的信息，比如异常对应行代码的作者，这样可以更好在持续化测试中自动化及更快地反馈给代码作者
+# Luacheck Blame Report
 
-[luacheck_blame_report](https://github.com/lizijie/luacheck_blame_report)目前基于git仓库工程，整合luacheck与git blame筛选出与作者关联的异常数量以及具体的异常条目
+## 简介
 
-# 用法
-`sh check.sh [luachech本身的参数选项]`
+Luacheck Blame Report 是一个将 Luacheck 静态代码分析工具与版本控制系统（Git/SVN）集成的工具。它能够自动关联代码异常与代码作者，帮助团队在持续集成过程中更快地发现并解决问题。
 
-# 运行依赖
-git、awk、wc、find
+主要功能：
+- 运行 Luacheck 进行 Lua 代码静态分析
+- 自动关联异常代码与版本控制系统中的作者信息
+- 生成按作者分类的异常报告
+- 支持 Git 和 SVN 版本控制系统
 
-# 样例
-[luacheck_blame_report](https://github.com/lizijie/luacheck_blame_report)目录下luacheck的lua代码异常报告
+## 安装
+
+### 依赖项
+
+- Lua 5.3 或更高版本
+- Luacheck
+- Git 或 SVN
+- 基本 Unix 工具：awk, grep, sed 等
+
+### Debian/Ubuntu 安装
+
+使用提供的安装脚本：
+
+```bash
+bash debian_install.sh
 ```
-$ cd xxxx
-$ git clone https://github.com/lizijie/luacheck_blame_report --recursive ./luacheck
-$ cd xxxx/luacheck_blame_report/luacheck
-$ sh ../check.sh ./ --config ../.luacheckrc
-Total: 123 warnings / 6 errors in 130 files
-report file: /mnt/f/luacheck_blame_report/2022-10-16-09-51-55-lua_check_report
-$ cat /mnt/f/luacheck_blame_report/2022-10-16-09-51-55-lua_check_report
+
+### 手动安装
+
+1. 安装 Lua 和 Luarocks：
+   ```bash
+   sudo apt-get install lua5.3 liblua5.3-dev luarocks
+   ```
+
+2. 安装 Luacheck：
+   ```bash
+   sudo luarocks install luacheck
+   ```
+
+## 使用方法
+
+基本用法：
+
+```bash
+bash check.sh [目标目录] [luacheck 参数]
+```
+
+例如：
+
+```bash
+bash check.sh ./ --config .luacheckrc
+```
+
+### 参数说明
+
+- `[目标目录]`：要检查的 Lua 代码目录
+- `[luacheck 参数]`：传递给 luacheck 的任何有效参数
+
+## 样例
+
 author   number of warnings/errors
 ----------------------------
 mpeterv:    69
@@ -157,18 +199,22 @@ Peter Melnichenko
     spec/samples/line_length.lua:29:121: line is too long (125 > 120)
     spec/samples/reversed_fornum.lua:1:1: numeric for loop goes from #(expr) down to -1.5 but loop step is not negative
     spec/samples/utf8.lua:2:1: setting undefined field 분야 명 of global math
-    spec/samples/utf8.lua:2:16: accessing undefined field 値 of global math
+    spec/samples/utf8.lua:2:16: accessing undefined field 值 of global math
     spec/samples/utf8.lua:3:25: unused variable t
     spec/samples/utf8.lua:4:5: value assigned to field päällekkäinen nimi a\u{200B}b is overwritten on line 5 before use
     spec/samples/utf8_error.lua:2:11: expected statement near 'о'
     src/luacheck/unicode_printability_boundaries.lua:2:121: line is too long (7635 > 120)
-```
 
-<br> 
-<br> 
-<b>原文:<br>
-<https://lizijie.github.io/2022/10/11/git%E5%B7%A5%E7%A8%8Bluacheck%E5%BC%82%E5%B8%B8%E8%B4%A3%E4%BB%BB%E4%BA%BA%E5%B7%A5%E5%85%B7luacheck_blame_report.html>
-<br>
-作者github:<br>
+## 注意事项
+
+1. 对于 SVN 仓库，脚本会自动跳过未版本控制的文件
+2. 对于无法获取作者信息的异常，会标记为"未知作者"
+3. 报告文件会保存在脚本运行目录下，文件名包含时间戳
+
+## 许可证
+
+MIT 许可证
+
+## 作者github
+
 <https://github.com/lizijie>
-</b>
